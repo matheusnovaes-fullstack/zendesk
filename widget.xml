@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chat 7K com Like/Deslike</title>
+  <style>
+    /* ===== Estilo do cabeçalho personalizado ===== */
+    .custom-chat-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #a1d038; /* Cor do 7K (ajuste se quiser) */
+      color: #000;
+      padding: 10px 15px;
+      font-family: Arial, sans-serif;
+      border-radius: 8px 8px 0 0;
+      width: 380px; /* mesma largura do widget */
+    }
+
+    .chat-title {
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .header-buttons button {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      margin-left: 8px;
+      transition: transform 0.2s;
+    }
+
+    .header-buttons button:hover {
+      transform: scale(1.2);
+    }
+
+    /* ===== Container geral ===== */
+    .chat-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="custom-chat-header">
+      <div class="chat-title">7K</div>
+      <div class="header-buttons">
+        <button id="likeBtn">👍</button>
+        <button id="dislikeBtn">👎</button>
+      </div>
+    </div>
+
+    <!-- O widget Zendesk será carregado aqui -->
+    <div id="zendeskChatWidget"></div>
+  </div>
+
+  <script>
+    // ======== Funções dos botões ========
+    document.getElementById("likeBtn").addEventListener("click", () => {
+      alert("Você curtiu o atendimento! 👍");
+      // Aqui você pode enviar o feedback via API ou registrar em analytics
+    });
+
+    document.getElementById("dislikeBtn").addEventListener("click", () => {
+      alert("Você não gostou do atendimento. 😕");
+      // Aqui também pode salvar o feedback ou enviar pro Zendesk via webhook
+    });
+
+    // ======== Script do Zendesk Messaging ========
+    window.zESettings = {
+      webWidget: {
+        chat: { suppress: false },
+      },
+    };
+
+    (function() {
+      var script = document.createElement('script');
+      script.id = 'ze-snippet';
+      script.src = 'https://static.zdassets.com/ekr/snippet.js?key=SEU_ZENDESK_KEY_AQUI';
+      document.body.appendChild(script);
+    })();
+  </script>
+</body>
+</html>
